@@ -1,0 +1,135 @@
+
+
+<%- include('header') -%>
+
+<div class="container-fluid">
+  <div class="row fixed-top bg-dark text-white">
+    <div class="col text-center">
+      Hello
+    </div>
+  </div>
+
+
+  <div class="row  fixed-center align-items-center" style="height: 100px; margin-top: 50px;">
+   
+
+
+    <div class="col-3 ">
+     Playlist
+     <form class="form-text">
+      <label for="name">Framework:</label>
+      <input type="file" id="name" placeholder="" autocomplete="off" accept="audio/*">
+
+      <button id="btnAdd">Add</button>
+
+      <label for="list">Framework List:</label>
+      <select id="list" name="list" size="2" style="width: 100px;" class="select ">
+
+      </select>
+      <!-- Play Music  -->
+      <button id="btnPlay" class="btn btn-btn"> Play</button>
+
+
+
+      <button id="btnRemove">Remove Selected Framework</button>
+  </form>
+
+  
+<script>
+  const btnAdd = document.querySelector('#btnAdd');
+  const btnRemove = document.querySelector('#btnRemove');
+  const sb = document.querySelector('#list');
+  const name = document.querySelector('#name');
+
+  const btnPlay = document.querySelector("#btnPlay");
+
+  btnAdd.onclick = (e) => {
+      e.preventDefault();
+
+      // validate the option
+      if (name.value == '') {
+          alert('Please choose a File');
+          return;
+      }
+      // create a new option
+      const option = new Option(name.value, name.value);
+      // add it to the list
+      sb.add(option, undefined);
+
+      // reset the value of the input
+      name.value = '';
+      name.focus();
+  };
+
+  // remove selected option
+  btnRemove.onclick = (e) => {
+      e.preventDefault();
+
+      // save the selected option
+      let selected = [];
+
+      for (let i = 0; i < sb.options.length; i++) {
+          selected[i] = sb.options[i].selected;
+      }
+
+      // remove all selected option
+      let index = sb.options.length;
+      while (index--) {
+          if (selected[index]) {
+              sb.remove(index);
+          }
+      }
+  };
+
+  btnPlay.onclick=(e)=>{
+    e.preventDefault();
+    let item;
+    item  = (sb.options)
+    // document.write(item);
+    let audioElement = new Audio(item);
+
+    if(audioElement.paused || audioElement.currentTime<=0){
+        audioElement.play();
+
+  }
+};
+
+</script>
+  
+    </div>
+    <div class="col">
+      <div id="first">
+        
+      </div>
+    </div>
+    <div class="col">
+      Column
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg text-center fixed-bottom">
+      <div class="box">
+        <audio class="audiplay" style="width: 100%;background: #000; color:black;" controls nodownload id="btnPlay1">
+          <source src="" type="audio/*">
+
+          <!-- <script>
+            var audio = document.querySelector("#btnPlay1");
+            var list = document.querySelector("#list")
+            audio.addEventListener(e){
+              audio.src = list.options;
+              audio.play();
+            }
+
+
+          </script> -->
+
+        </audio>
+        <script src="https://cdn.jsdelivr.net/gh/sh20raj/AudiPlay/audiplay.min.js"></script>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('footer') -%>
